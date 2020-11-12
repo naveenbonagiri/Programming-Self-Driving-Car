@@ -1,1 +1,6 @@
-# List of untracked files to ignore
+*.py[cod]
+
+build
+devel
+
+profile.tmp
