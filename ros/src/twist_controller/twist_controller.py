@@ -16,7 +16,7 @@ class Controller(object):
         ki = 0.1
         kd = 0.0
         mn = 0.0 #minimum throttle
-        mx = 0.2 #maximum throttle
+        mx = 0.45 #maximum throttle
         
         self.throttle_controller = PID(kp, ki, kd, mn, mx)
         
@@ -25,8 +25,8 @@ class Controller(object):
         self.vel_lpf = LowPassFilter(tau, ts)
         
         self.vehicle_mass = vehicle_mass
-        self.fuel_capacity = fuel_capacity,
-        self.brake_deadband = brake_deadband,
+        self.fuel_capacity = fuel_capacity
+        self.brake_deadband = brake_deadband
         self.decel_limit = decel_limit
         self.accel_limit = accel_limit
         self.wheel_radius = wheel_radius      

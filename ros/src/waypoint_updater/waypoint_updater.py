@@ -25,7 +25,9 @@ TODO (for Yousuf and Aaron): Stopline location for each traffic light.
 '''
 
 MAX_DECEL = 0.5
-LOOKAHEAD_WPS = 200 # Number of waypoints we will publish. You can change this number
+# Number of waypoints we will publish. You can change this number
+# Udacity workspace response is slow with default count 200 so changed to 50 for better results
+LOOKAHEAD_WPS = 50 
 
 
 class WaypointUpdater(object):
@@ -42,16 +44,16 @@ class WaypointUpdater(object):
         self.final_waypoints_pub = rospy.Publisher('final_waypoints', Lane, queue_size=1)
 
         # TODO: Add other member variables you need below
-		self.base_lane = None
+        self.base_lane = None
         self.pose = None
-		self.stopline_wp_idx = -1
+        self.stopline_wp_idx = -1
         self.waypoints_2d = None
         self.waypoint_tree = None
         
         self.loop()
     
     def loop(self):
-        rate = rospy.Rate(50)
+        rate = rospy.Rate(10)
         while not rospy.is_shutdown():
             #if self.pose and self.base_waypoints:
                 # Retrieve closest waypoint
@@ -127,7 +129,7 @@ class WaypointUpdater(object):
 
     def waypoints_cb(self, waypoints):
         #self.base_waypoints = waypoints
-		self.base_lane = waypoints
+        self.base_lane = waypoints
         if not self.waypoints_2d:
             self.waypoints_2d = [[waypoint.pose.pose.position.x, waypoint.pose.pose.position.y] for waypoint in waypoints.waypoints]
             self.waypoint_tree = KDTree(self.waypoints_2d)
